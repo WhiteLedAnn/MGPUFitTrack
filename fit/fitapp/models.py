@@ -58,15 +58,7 @@ class Student_Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-@receiver(post_save, sender=User)
-def save_or_create_profile(sender, instance, created, **kwargs):
-    if created:
-        Student_Profile.objects.create(user=instance)
-    else:
-        try:
-            instance.student_profile.save()
-        except (ValueError, ObjectDoesNotExist):
-            Student_Profile.objects.create(user=instance)
+
 """
 В forms.py
 SEX_CHOICES = (
