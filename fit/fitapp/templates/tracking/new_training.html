@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+    Записать тренировку
+{% endblock %}
+
+{% block content %}
+    <h1>Записать новую тренировку</h1>
+    <a href="{% url 'verify' %}" class="button"><i class="fa fa-sign-in">Импортировать данные из Google Fit</i></a>
+    <h2> Или ввести данные вручную </h2>
+    <form method="POST" class="post-form"> {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Сохранить</button>
+    </form>
+
+{% endblock %}

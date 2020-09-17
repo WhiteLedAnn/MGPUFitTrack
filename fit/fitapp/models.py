@@ -12,13 +12,17 @@ from django.core.exceptions import ObjectDoesNotExist
 class Type_Of_Training(models.Model):
     id_exercise = models.IntegerField(primary_key=True)
     title_exercise = models.CharField(max_length=50)  # название упражнения
-    translit_title_e = models.CharField(verbose_name='Транслит', max_length=210, blank=True)  # save ссылки на тип упражн для сайта
-    link = models.CharField(max_length=100, blank=True)  # название упражнения
+    translit_title = models.CharField(verbose_name='Транслит', max_length=210, blank=True)  # save ссылки на тип упражн для сайта
+    link = models.CharField(max_length=100, blank=True)  # ссылка на упражнение
     exercise_description = models.TextField(blank=True)  # описание
+    published = models.BooleanField(default=True)  # запись в бд по умолчанию опубликована
 
     def save(self):
-        self.translit_title = '{0}-{1}'.format('exercise', defaultfilters.slugify(unidecode(self.title)))# slugify(self.title)
+        self.translit_title = '{0}-{1}'.format('exercise', defaultfilters.slugify(unidecode(self.title_exercise)))# slugify(self.title_exercise)
         super(Type_Of_Training, self).save()
+
+    def __str__(self):
+        return self.title_exercise
 
 
 class Trainer(models.Model):
@@ -55,8 +59,8 @@ class Student_Profile(models.Model):
     chest = models.IntegerField(null=True, blank=True)  # окружность грудной клетки
     signup_confirmation = models.BooleanField(default=False)   
 
-    def __str__(self):
-        return self.user.username
+    """def __str__(self):
+        return self.user.username"""
 
 
 """
@@ -114,9 +118,11 @@ class Training(models.Model):
     exercise = models.ForeignKey(Type_Of_Training, on_delete = models.CASCADE)  # fk код упражнения
     student = models.ForeignKey(Student_Profile, on_delete = models.CASCADE)  # fk код обучающегося
     goal = models.ForeignKey(Goals, on_delete = models.SET_NULL, null=True, blank=True)  # fk код цели
-    t_result = models.CharField(null=True, max_length=100, blank=True)  # если данные из приложения - то из какого
+    app_train_type = models.CharField(max_length=100, blank=True)  # как называется тренировка в приложении
+    t_app = models.CharField(null=True, max_length=100, blank=True)  # если данные из приложения - то из какого
     t_date = models.DateTimeField(default=timezone.now, blank=True)  # дата проведения тренировки
     t_result = models.CharField(max_length=100, blank=True)  # результат тренировки
+    steps = models.IntegerField(null=True, blank=True)  # шаги
     heart = models.IntegerField(null=True, blank=True)  # число сердечных сокращений
     duration = models.IntegerField(null=True, blank=True)  # длительность время выполнения
     pace = models.IntegerField(default=0, blank=True)  # темп интенсивность баллы кардио
@@ -128,6 +134,8 @@ class Training(models.Model):
     screen = models.ImageField(null=True, blank=True, upload_to='images/students')  # скрин экрана
     advice = models.TextField(max_length=200, null=True, blank=True)  # совет тренера по результатам
     review = models.TextField(max_length=200, null=True, blank=True)  # комментарий обучающегося о тренировке
+    t_published = models.BooleanField(default=True)  # запись в бд по умолчанию опубликована
+
 
 
 class Tests(models.Model):

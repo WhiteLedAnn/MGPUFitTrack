@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+    Все мои тренировки
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'new_training' %}" class="actions_act"><span class="fa fa-plus fa-2x" role="img"></span></a>
+    <a href="{% url 'verify' %}" class="button"><i class="fa fa-sign-in">Импортировать данные из Google Fit</i></a>
+    <div class = "row">
+        <div class="col-md-8">
+            {% for training in trainings %}
+                <div class="training">
+                    <h1><a href = "{% url 'training_detail' %}">{{ training.training }}</a></h1>
+                    <p> Шаги: {{ training.steps}}</p>
+                    <p> Комментарий{{ training.review|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+<!-- =.= code by (ab) -->

@@ -1,7 +1,23 @@
 Django~=2.2.5
 Unidecode~=1.1.1
-Pillow~=3.1.2
+Pillow
 django-uuslug~=1.1.9
 psycopg2~=2.8.4
 six~=1.14.0
-Python~=3.6.3
+oauth2client
+google-api-python-client
+requests
+gunicorn
+pytz
+ConfigParser
+python-social-auth
+google-cloud-bigquery
+google-python-cloud-debugger
+google-cloud-datastore
+grpcio
+google-cloud-error-reporting
+google-cloud-storage
+django-google-api
+httplib2 # pip3.6 install httplib2 --upgrade
+#Python~=3.6.3
+

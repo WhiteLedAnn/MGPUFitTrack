@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html>
+    <head>
+        {% load static %}
+        <meta charset="utf-8" class="head">
+        <meta name="viewport" content="width=device-width, initial-scale=1" class="head">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--<link rel="shortcut icon" href="{% static '/images/favicon.png' %}" type="image/png">-->
+        <link rel="stylesheet" href="{% static 'css/mgpu.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&subset=latin,cyrillic" rel="stylesheet" type="text/css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.2/flatpickr.min.js"></script>
+        $('.datepicker').flatpickr({
+            dateFormat: "d-m-Y",
+            allowInput:true,
+        });
+        <title class="head">
+            {% block title %}
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+        <div>
+            <h1><a href="/">Карта здоровья</a></h1>
+        </div>
+        <div id = "mgpu">
+            <header>
+                <div class="header_h">
+                    <!--<div class="cookieContainer_h">
+                        дописать сообщение об использовании куки                        
+                    </div>-->
+                    <div class="container_h">
+                        <div class="logo_h">
+                            <a href="/">
+                                {% include "mgpulogo.html" %}
+                            </a>
+                        </div>
+                        <nav class = "nav_n">
+                            <ul class="list_nav">
+                                <li class="item_nav">
+                                    <a class="a_nav" href="/tracking">
+                                        <span>Отследить свои тренировки </span>
+                                    </a>
+                                    <span>|</span>
+                                    <a class="a_nav" href="/trainings">
+                                        <span> Типы тренировок</span>
+                                    </a>
+                                    <!--<ul class="categoryList_nav">
+                                        <li>
+                                            <a class="a_nav" href="/trainings/подраздел">Название подраздела</a>
+                                        </li>
+                                    </ul>-->
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class = "block_act">
+                            <div class = "actions_act">
+                                <div class = "search"><label></label></div>
+                                <div class = "icons">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "divider_h">
+                </div>
+            </header>
+            <div class = "container_all">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+
+    </body>
+</html>
+<!-- Это - базовый шаблон, блок, который используется для разных страниц -->
+<!-- =.= code by (ab) -->

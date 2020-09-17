@@ -1,5 +1,5 @@
 """
-WSGI config for fit project.
+WSGI config for fit project с помощью него приложение может работать с веб-сервером(Nginx, Apache, и многими другими) по протоколу WSGI.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

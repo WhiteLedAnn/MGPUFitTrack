@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+    Моя тренировка
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'training_edit' %}" class="actions_act"><span class="fa fa-edit fa-2x" role="img"></span></a>
+    <div class = "row">
+        <div class="col-md-8">
+                <div class="training">
+                    {% if training.t_published %}
+                        <p>опубликовано: {{ training.t_published }}</p>
+                    {% else %}
+                        <a href="{% url 'training_publish' %}" class="button">Добавить тренировку</a> 
+                    {% endif %}
+                    <a href="{% url 'training_remove' %}" class="actions_act"><span class="fa fa-trash-o"></span></a><div class="date">
+                        <p>дата последнего апдейта: {{ traintype.pub_date }}</p>
+                    </div>                            
+                    <h1>название тренировки в приложении: {{ training.app_train_type }}</h1>
+                    <p>шаги: {{ training.steps}}</p>
+                    <p>длительность: {{ training.duration}}</p>
+                    <p>комментарий обучающегося о тренировке: {{ training.review|linebreaksbr }}</p>
+                </div>
+        </div>
+    </div>
+{% endblock %}
+<!-- =.= code by (ab) -->

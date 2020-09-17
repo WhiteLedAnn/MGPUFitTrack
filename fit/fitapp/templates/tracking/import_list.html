@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+    Импортированное
+{% endblock %}
+
+{% block content %}
+    <div class = "row">
+        <div class="col-md-8">
+            <div class="training">
+                <p> Шаги за введённый период: {{ steps.steps}}</p>
+                <p> Данные по шагам из: {{ steps.originDataSourceId|linebreaksbr }}</p>
+            </div>
+            {% for activity in activities %}
+                <form method="POST" class="post-form"> {% csrf_token %}
+                <div class="training">
+                    <p> Тип: {{ activity.activity_type}}</p>
+                    <p> Кол-во сегментов активности: {{ activity.segments }}</p>
+                    <p> Дата: {{ activity.date}}</p>
+                    <p> Время: {{ activity.time|linebreaksbr }}</p>
+                    <button type="submit" class="save btn btn-default">Сохранить эту тренировку</button>
+                </div>
+                </form>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+<!-- =.= code by (ab) -->

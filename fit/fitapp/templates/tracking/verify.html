@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+    Записать тренировку
+{% endblock %}
+
+{% block content %}
+    <h1>Импортировать из Google Fit</h1>
+    <div>
+    <button type="button" class="btn btn-info" id="s_button"
+       onclick="window.open('{% url 'goto_html' %}', '_blank')"> Пройдите по ссылке для получения кода верификации</button>
+    </div>
+    <form method="POST" class="post-form"> {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Ввести код подтверждения</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ traintype.title_exercise }}
+{% endblock %}
+
+{% block content %}
+    <a href="{% url 'traintype_edit' translit_title=traintype.translit_title %}" class="actions_act"><span class="fa fa-edit fa-2x" role="img"></span></a>
+    <div class = "row">
+        <div class="col-md-8">
+                <div class="traintype">
+                    {% if traintype.published %}
+                        <p>Опубликовано: {{ traintype.published }}</p>
+                    {% else %}
+                        <a href="{% url 'traintype_publish' translit_title=traintype.translit_title %}" class="button">Добавить тип тренировки</a> 
+                    {% endif %}
+                    <a href="{% url 'traintype_remove' translit_title=traintype.translit_title %}" class="actions_act"><span class="fa fa-trash-o"></span></a>                          
+                    <h1>{{ traintype.title_exercise }}</h1>
+                    <p> id: {{ traintype.id_exercise }}</p>
+                    <p> Ссылка на описание упражнения: {{ traintype.link }}</p>
+                    <p>{{ traintype.exercise_description|linebreaksbr }}</p>
+                </div>
+        </div>
+    </div>
+{% endblock %}
+<!-- =.= code by (ab) -->
