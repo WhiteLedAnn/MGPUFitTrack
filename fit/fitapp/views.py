@@ -219,6 +219,7 @@ def import_list(request, *args, ver = None, data_day = None, data_end = None, **
             "startTimeMillis": startTimeMillis,
             "endTimeMillis": endTimeMillis
         }).execute()
+
     ver = ver
     #TIME THING
     epoch0 = dati(1970, 1, 1, tzinfo=pytz.utc)
@@ -251,13 +252,14 @@ def import_list(request, *args, ver = None, data_day = None, data_end = None, **
     ver = ver.replace("|", "/")
     code = ver  
     credentials = flow.step2_exchange(code)
+    print(credentials, "credentials", flow, "flow")
     # Create an httplib2.Http object and authorize it with our credentials
     http = httplib2.Http()
     http = credentials.authorize(http)
     http_auth = credentials.authorize(httplib2.Http())
-
+    print(http_auth, "http_auth")
     fit_service = build('fitness', 'v1', http=http_auth)
-
+    print(fit_service, "fit_service")
     # STEPS
     steps = {}
     steps_data = get_aggregate(fit_service, start_time_millis, end_time_millis, STEPS_DATASOURCE)  
@@ -317,8 +319,30 @@ def import_list(request, *args, ver = None, data_day = None, data_end = None, **
                         'segments': n_segments,
                         'date': local_date_str,
                     })
-    print(activities['daily_activities'], "activities['daily_activities']", steps[local_date_str], "steps[local_date_str]")
-    return render(request, 'tracking/import_list.html', {'activities' : activities['daily_activities'], 'steps' : steps[local_date_str]})
+    print(activities['daily_activities'], "activities['daily_activities']", steps[local_date_str], "steps[local_date_str]", steps[local_date_str]['steps'], "steps[local_date_str]['steps']")
+    data = {'steps': steps[local_date_str]['steps'],
+            'app_train_type': activities['daily_activities'][0]['activity_type'],
+            'duration': activities['daily_activities'][0]['time']}#
+    """if request.method == "POST":
+        print("if request.method == POST")
+        form = PostTrainingForm(request.POST, initial=data)
+        if form.is_valid():            
+            training = form.save(commit=False)
+            get_id = Training.objects.all().last()
+            if(get_id):
+                training.training = get_id.training + 1
+            else:
+                training.training = 0
+            get_ex = Type_Of_Training.objects.get(title_exercise = training.exercise)
+            training.exercise = get_ex
+            training.save()
+            ret
+    else:
+        form = PostTrainingForm(initial=data)"""
+    return redirect('new_training', data = data)     
+    #return render(request, 'tracking/import_list.html', {'form': form})
+    #return render(request, 'tracking/import_list.html', {'activities' : activities['daily_activities'], 'steps' : steps[local_date_str]})
+   
 
 
 def home(request):
@@ -398,9 +422,11 @@ def traintype_remove(request, translit_title):
 
 
 #@login_required
-def new_training(request):
+def new_training(request, *args, data = None, **kwargs):
+    print(data, "data")
+    data = eval(data)
     if request.method == "POST":
-        form = PostTrainingForm(request.POST)
+        form = PostTrainingForm(request.POST, initial=data)
         if form.is_valid():            
             training = form.save(commit=False)
             get_id = Training.objects.all().last()
@@ -413,7 +439,7 @@ def new_training(request):
             training.save()
             return redirect('training_detail')
     else:
-        form = PostTrainingForm()
+        form = PostTrainingForm(initial=data)
     return render(request, 'tracking/new_training.html', {'form': form})
 
 

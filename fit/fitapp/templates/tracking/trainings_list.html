@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block content %}
-    <a href="{% url 'new_training' %}" class="actions_act"><span class="fa fa-plus fa-2x" role="img"></span></a>
+    <a href="{% url 'new_training' None %}" class="actions_act"><span class="fa fa-plus fa-2x" role="img"></span></a>
     <a href="{% url 'verify' %}" class="button"><i class="fa fa-sign-in">Импортировать данные из Google Fit</i></a>
     <div class = "row">
         <div class="col-md-8">

@@ -21,6 +21,10 @@ class PostTrainingForm(forms.ModelForm):
         fields = ('exercise', 'student', 't_app', 't_date', 't_result', 'steps', 'duration', 'pub_date', 'review', 'app_train_type', 't_published', )
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        """if kwargs.has_key('steps'):
+            self.fields['steps'].initial = self.initial['steps']
+        if kwargs.has_key('app_train_type'):
+            self.fields['app_train_type'].initial = self.initial['app_train_type']"""
         #self.fields['exercise'].queryset = Type_Of_Training.objects.all()  # .none()
 
 
