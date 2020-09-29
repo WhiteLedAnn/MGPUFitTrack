@@ -14,11 +14,11 @@ urlpatterns = [
     path(r'<translit_title>/publish/', views.traintype_publish, name='traintype_publish'),
     path(r'<translit_title>/remove/', views.traintype_remove, name='traintype_remove'),
     path(r'tracking/', views.trainings_list, name='trainings_list'),
-    path('trainingsdetail/', views.trainings_detail, name='training_detail'),
+    path(r'trainingsdetail/<training>', views.trainings_detail, name='training_detail'),
     path(r'newtraining/<data>/', views.new_training, name='new_training'),
-    path('training/edit/', views.traintype_edit, name='training_edit'),
-    path('training/publish/', views.traintype_publish, name='training_publish'),
-    path('training/remove/', views.traintype_remove, name='training_remove'),
+    path(r'edit/<training>/', views.training_edit, name='training_edit'),
+    path(r'publish/<training>/', views.training_publish, name='training_publish'),
+    path(r'remove/<training>/', views.training_remove, name='training_remove'),
     path(r'import_list/<ver>/<data_day>/<data_end>/', views.import_list, name='import_list'),
 
 ]

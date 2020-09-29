@@ -368,8 +368,8 @@ def trainings_list(request):
     return render(request, 'tracking/trainings_list.html', {'trainings' : trainings})
 
 
-def trainings_detail(request):
-    training = get_object_or_404(Training)
+def trainings_detail(request, training):
+    training = get_object_or_404(Training, training=training)
     return render(request, 'tracking/training_detail.html', {'training' : training})
 
 
@@ -420,7 +420,6 @@ def traintype_remove(request, translit_title):
     return redirect('traintypes_list')
 
 
-
 #@login_required
 def new_training(request, *args, data = None, **kwargs):
     print(data, "data")
@@ -437,38 +436,39 @@ def new_training(request, *args, data = None, **kwargs):
             get_ex = Type_Of_Training.objects.get(title_exercise = training.exercise)
             training.exercise = get_ex
             training.save()
-            return redirect('training_detail')
+            return redirect('training_detail', training.training)
     else:
         form = PostTrainingForm(initial=data)
     return render(request, 'tracking/new_training.html', {'form': form})
 
 
 #@login_required
-def training_edit(request):
-    training = get_object_or_404(Training)
+def training_edit(request, training):
+    training = get_object_or_404(Training, training=training)
     if request.method == "POST":
         form = PostTrainingForm(request.POST, instance=training)
         if form.is_valid():
             training = form.save(commit=False)
             training.save()
-            return redirect('training_detail')
+            return redirect('training_detail', training=training)
     else:
         form = PostTrainingForm(instance=training)
     return render(request, 'training/new_training.html', {'form': form})
 
 
 #@login_required
-def training_publish(request):
-    training = get_object_or_404(Training)
+def training_publish(request, training):
+    training = get_object_or_404(Training, training=training)
     training.publish()
-    return redirect('training_detail')
+    return redirect('training_detail', training)
 
 
 #@login_required
-def training_remove(request):
-    training = get_object_or_404(Training)
+def training_remove(request, training):
+    training = get_object_or_404(Training, training=training)
     training.delete()
     return redirect('trainings_list')
+
 
 # https://pypi.org/project/django-google-api/  DJANGO GOOGLE 
 

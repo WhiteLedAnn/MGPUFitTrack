@@ -10,7 +10,7 @@
         <div class="col-md-8">
             {% for training in trainings %}
                 <div class="training">
-                    <h1><a href = "{% url 'training_detail' %}">{{ training.training }}</a></h1>
+                    <h1><a href = "{% url 'training_detail' training=training.training %}">{{ training.training }}</a></h1>
                     <p> Шаги: {{ training.steps}}</p>
                     <p> Комментарий{{ training.review|linebreaksbr }}</p>
                 </div>

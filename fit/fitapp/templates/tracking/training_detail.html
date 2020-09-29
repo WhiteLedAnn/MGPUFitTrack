@@ -4,16 +4,16 @@
 {% endblock %}
 
 {% block content %}
-    <a href="{% url 'training_edit' %}" class="actions_act"><span class="fa fa-edit fa-2x" role="img"></span></a>
+    <a href="{% url 'training_edit' training=training.training %}" class="actions_act"><span class="fa fa-edit fa-2x" role="img"></span></a>
     <div class = "row">
         <div class="col-md-8">
                 <div class="training">
                     {% if training.t_published %}
                         <p>опубликовано: {{ training.t_published }}</p>
                     {% else %}
-                        <a href="{% url 'training_publish' %}" class="button">Добавить тренировку</a> 
+                        <a href="{% url 'training_publish' training=training.training %}" class="button">Добавить тренировку</a> 
                     {% endif %}
-                    <a href="{% url 'training_remove' %}" class="actions_act"><span class="fa fa-trash-o"></span></a><div class="date">
+                    <a href="{% url 'training_remove' training=training.training %}" class="actions_act"><span class="fa fa-trash-o"></span></a><div class="date">
                         <p>дата последнего апдейта: {{ traintype.pub_date }}</p>
                     </div>                            
                     <h1>название тренировки в приложении: {{ training.app_train_type }}</h1>
